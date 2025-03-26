@@ -1,1 +1,1 @@
-Репозиторий содержит решения задач из [хэндубука](https://education.yandex.ru/handbook/algorithms) "Алогоритмы" от Яндекс Образования.
+Репозиторий содержит решения задач из [хэндбука](https://education.yandex.ru/handbook/algorithms) "Алгоритмы" от Яндекс Образования.
