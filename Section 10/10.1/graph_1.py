@@ -1,6 +1,3 @@
-from itertools import combinations
-
-
 class Route:
     def __init__(self, k: int, stops: list[int]):
         self.k = k
@@ -33,32 +30,39 @@ def input_data() -> Task:
 
 
 def getAdjacencyForNeighbours(task: Task) -> list[list[int]]:
-    mat1 = [[0] * task.n for _ in range(task.n)]
+    mat = [[0] * task.n for _ in range(task.n)]
+
     for route in task.routes:
         for i in range(route.k):
             if i + 1 < route.k:
                 stop = route.stops[i]
                 nextstop = route.stops[i+1]
-                mat1[stop - 1][nextstop - 1] = 1
-                mat1[nextstop - 1][stop - 1] = 1
+                mat[stop - 1][nextstop - 1] = 1
+                mat[nextstop - 1][stop - 1] = 1
 
-    return mat1
+    return mat
 
 
 def getAdjacencyWithoutTransfers(task: Task) -> list[list[int]]:
-    mat1 = [[0] * task.n for _ in range(task.n)]
+    mat = [[0] * task.n for _ in range(task.n)]
 
     for route in task.routes:
-        combs = list(combinations(route.stops, 2)) # TODO: change this to my own implementation
+        combs = getCombs2(route.stops, route.k)
         for comb in combs:
-            mat1[comb[0] - 1][comb[1] - 1] = 1
-            mat1[comb[1] - 1][comb[0] - 1] = 1
+            mat[comb[0] - 1][comb[1] - 1] = 1
+            mat[comb[1] - 1][comb[0] - 1] = 1
 
-    return mat1
+    return mat
 
+def getCombs2(a: list[int], n: int) -> list[tuple[int, int]]:
+    combs = []
+    for i in range(n - 1):
+        for j in range(i + 1, n):
+            combs.append( (a[i], a[j]) )
+    return combs
 
 def printMatrix(mat: list[list[int]]):
-    for r in mat1:
+    for r in mat:
         print(*r)
 
 
